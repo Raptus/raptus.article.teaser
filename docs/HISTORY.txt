@@ -1,6 +1,11 @@
 Changelog
 =========
 
+after 2.0b8
+-----------
+
+* plone 4.1 compatibility by importing cmfcore permissions [fRiSi]
+
 2.0b8 (2011-02-22)
 ------------------
 
