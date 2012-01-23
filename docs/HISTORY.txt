@@ -1,9 +1,11 @@
 Changelog
 =========
 
-after 2.0b8
------------
+2.0b9 (2012-01-23)
+------------------
 
+* moved plone 4.1 compatibility fix into raptus.article.core to have it applied to
+  the whole raptus.article suit
 * plone 4.1 compatibility by importing cmfcore permissions [fRiSi]
 
 2.0b8 (2011-02-22)
@@ -14,8 +16,7 @@ after 2.0b8
 2.0b7 (2010-12-07)
 ------------------
 
-* fix franz translation
-
+* Fixed French translations
 
 2.0b6 (2010-11-10)
 ------------------

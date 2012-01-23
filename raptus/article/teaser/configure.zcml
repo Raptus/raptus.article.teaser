@@ -9,10 +9,6 @@
     <include package="archetypes.schemaextender" />
     <include package="plone.app.imaging" />
 
-    <include package="Products.CMFCore" file="permissions.zcml"
-         xmlns:zcml="http://namespaces.zope.org/zcml"
-         zcml:condition="have plone-41" />
-
     <five:registerPackage package="." />
 
     <!-- Include the sub-packages that use their own configure.zcml files. -->
