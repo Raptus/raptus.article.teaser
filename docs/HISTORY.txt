@@ -6,6 +6,7 @@ after 2.0b9
 
 * use image scales defined in plone.app.imaging if it's available
   and hard-coded ones if it's not.
+  [fRiSi]
   
 2.0b9 (2012-01-23)
 ------------------
