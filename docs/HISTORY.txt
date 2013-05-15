@@ -8,6 +8,10 @@ after 2.0b9
   and hard-coded ones if it's not.
   [fRiSi]
   
+* make teaser images croppable using plone.app.imagecropping if
+  it's installed
+  [fRiSi]
+  
 2.0b9 (2012-01-23)
 ------------------
 
