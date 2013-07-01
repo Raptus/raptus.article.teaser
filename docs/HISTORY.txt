@@ -1,6 +1,11 @@
 Changelog
 =========
 
+2.0b10 (unreleased)
+-------------------
+
+* No longer link to images if the displayed image is larger than the one linked to
+
 2.0b9 (2012-01-23)
 ------------------
 
