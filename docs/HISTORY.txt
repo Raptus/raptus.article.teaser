@@ -1,14 +1,13 @@
 Changelog
 =========
 
-2.0b11 (unreleased)
+2.0b11 (2013-07-22)
 -------------------
 
 * Use image scales defined in plone.app.imaging if it's available
   and hard-coded ones if it's not. [fRiSi]
 * Make teaser images croppable using plone.app.imagecropping if
   it's installed. [fRiSi]
-
 
 2.0b10 (2013-07-01)
 -------------------
