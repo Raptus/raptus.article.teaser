@@ -9,6 +9,7 @@ from plone.memoize.instance import memoize
 from raptus.article.core import RaptusArticleMessageFactory as _
 from raptus.article.core import interfaces
 from raptus.article.teaser.interfaces import ITeaser
+from plone.app.imaging.interfaces import IImageScaling
 
 
 class ITeaserLeft(interface.Interface):
@@ -58,27 +59,69 @@ class ViewletLeft(ViewletBase):
     @memoize
     def caption_non_default(self):
         provider = ITeaser(self.context)
-        return provider.getCaption(non_default = True)
+        return provider.getCaption(non_default=True)
 
     @property
     @memoize
+    def scale(self):
+        props = getToolByName(self.context, 'portal_properties').raptus_article
+        return props.getProperty('teaser_%s_scale' % self.type, None)
+            
+    @property
+    @memoize
     def image(self):
+        if self.scale:
+            scaling = component.getMultiAdapter((self.context, self.request), name='images')
+            return scaling.scale('image', self.scale)
+        
         provider = ITeaser(self.context)
         return provider.getTeaser(size=self.type)
 
     @property
     @memoize
     def url(self):
+        """link to popup image, none if the popup is not bigger than the 
+        already displayed teaser image
+        """
+        
+        props = getToolByName(self.context, 'portal_properties').raptus_article
+        popup_scale = props.getProperty('teaser_popup_scale', None)
+        
         provider = ITeaser(self.context)
-        w, h = self.context.Schema()['image'].getSize(self.context)
-        tw, th = provider.getSize(self.type)
-        if (not tw or tw >= w) and (not th or th >= h):
-            return None
-        pw, ph = provider.getSize('popup')
+        if self.scale:
+            #if teaser uses a plone.app.imaging scale use it's size
+            tw, th = (self.image.width, self.image.height)
+        else:
+            tw, th = provider.getSize(self.type)    
+            
+        if popup_scale:
+            scaling = component.getMultiAdapter((self.context, self.request), name='images')
+            img = scaling.scale('image', popup_scale)
+            url = img.url
+            pw, ph = (img.width, img.height)
+        else:  
+            w, h = self.context.Schema()['image'].getSize(self.context)
+            if (not tw or tw >= w) and (not th or th >= h):
+                #original image <= already displayed teaser -> no popup needed
+                #extra check since this popup scale might "blow up" the original picture
+                #XXX really needed? if we need a check, shouldn't we check org <= popup here?
+                return None
+            
+            pw, ph = provider.getSize('popup')
+            url = provider.getTeaserURL(size='popup')
+               
         if (pw and pw <= tw) or (ph and ph <= th):
+            #popup scale  <= teaser -> no popup needed
             return None
-        return provider.getTeaserURL(size='popup')
+        
+        return url
 
+    @property
+    @memoize
+    def relAttribute(self):
+        props = getToolByName(self.context, 'portal_properties').raptus_article
+        return props.getProperty('teaser_rel_attribute', 'lightbox')
+        
 
 class ITeaserRight(interface.Interface):
     """ Marker interface for the teaser right viewlet

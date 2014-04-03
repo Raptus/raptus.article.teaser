@@ -22,6 +22,39 @@ Dependencies
     * raptus.article.core
     * plone.app.imaging
 
+
+Configuration
+-------------
+
+JS Picture Galleries
+````````````````````
+
+By default this component opens images in a `Products.jsImagePopups`_ gallery.
+
+To use `collective.prettyphoto`_ install the package and set the property
+``teaser_rel_attribute`` to ``prettyPhoto``.
+
+.. _`Products.jsImagePopups`: http://pypi.python.org/pypi/Products.jsImagePopups
+
+.. _`collective.prettyphoto`: http://pypi.python.org/pypi/collective.prettyphoto
+
+
+plone.app.imaging
+`````````````````
+
+To use plone.app.imaging scales simply set the corresponding properties to the name
+if the image scale.
+
+If present, those will overrule the widht and height settings.
+
+available properties:
+
+* teaser_thumb_scale
+* teaser_left_scale
+* teaser_full_scale
+* teaser_popup_scale
+
+
 Installation
 ============
 
@@ -84,5 +117,5 @@ be set in the edit form for the components to display.
 Copyright and credits
 =====================
 
-raptus.article is copyrighted by `Raptus AG <http://raptus.com>`_ and licensed under the GPL. 
+raptus.article is copyrighted by `Raptus AG <http://raptus.com>`_ and licensed under the GPL.
 See LICENSE.txt for details.

@@ -10,7 +10,8 @@
     <a href="" rel="lightbox"
        tal:omit-tag="not: view/url"
        tal:attributes="href view/url;
-                       title view/caption;">
+                       title view/caption;
+                       rel view/relAttribute">
       <img src=""
            tal:replace="structure view/image" />
     </a>
