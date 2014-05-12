@@ -10,6 +10,7 @@ from raptus.article.core import RaptusArticleMessageFactory as _
 from raptus.article.core import interfaces
 from raptus.article.teaser.interfaces import ITeaser
 from plone.app.imaging.interfaces import IImageScaling
+from Products.CMFPlone.utils import safe_unicode
 
 
 class ITeaserLeft(interface.Interface):
@@ -77,6 +78,13 @@ class ViewletLeft(ViewletBase):
         provider = ITeaser(self.context)
         return provider.getTeaser(size=self.type)
 
+    @property
+    @memoize
+    def image_tag(self):
+        if self.scale:
+            return safe_unicode(self.image.tag())
+        return self.image
+        
     @property
     @memoize
     def url(self):

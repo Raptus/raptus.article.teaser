@@ -13,7 +13,7 @@
                        title view/caption;
                        rel view/relAttribute">
       <img src=""
-           tal:replace="structure view/image" />
+           tal:replace="structure view/image_tag" />
     </a>
     <p tal:condition="python: view.show_caption and view.caption_non_default"
        tal:content="view/caption_non_default"
