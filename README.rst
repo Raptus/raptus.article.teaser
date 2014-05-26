@@ -45,7 +45,7 @@ plone.app.imaging
 To use plone.app.imaging scales simply set the corresponding properties to the name
 if the image scale.
 
-If present, those will overrule the widht and height settings.
+If present, those will overrule the width and height settings.
 
 available properties:
 

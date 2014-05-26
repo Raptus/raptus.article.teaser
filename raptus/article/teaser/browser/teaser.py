@@ -61,68 +61,32 @@ class ViewletLeft(ViewletBase):
     def caption_non_default(self):
         provider = ITeaser(self.context)
         return provider.getCaption(non_default=True)
-
-    @property
-    @memoize
-    def scale(self):
-        props = getToolByName(self.context, 'portal_properties').raptus_article
-        return props.getProperty('teaser_%s_scale' % self.type, None)
             
     @property
     @memoize
-    def image(self):
-        if self.scale:
-            scaling = component.getMultiAdapter((self.context, self.request), name='images')
-            return scaling.scale('image', self.scale)
-        
+    def image(self):       
         provider = ITeaser(self.context)
         return provider.getTeaser(size=self.type)
 
     @property
     @memoize
-    def image_tag(self):
-        if self.scale:
-            return safe_unicode(self.image.tag())
-        return self.image
-        
-    @property
-    @memoize
     def url(self):
-        """link to popup image, none if the popup is not bigger than the 
-        already displayed teaser image
+        """return link to popup image, none if the popup is not bigger
+        than the already displayed teaser image
         """
-        
-        props = getToolByName(self.context, 'portal_properties').raptus_article
-        popup_scale = props.getProperty('teaser_popup_scale', None)
-        
         provider = ITeaser(self.context)
-        if self.scale:
-            #if teaser uses a plone.app.imaging scale use it's size
-            tw, th = (self.image.width, self.image.height)
-        else:
-            tw, th = provider.getSize(self.type)    
-            
-        if popup_scale:
-            scaling = component.getMultiAdapter((self.context, self.request), name='images')
-            img = scaling.scale('image', popup_scale)
-            url = img.url
-            pw, ph = (img.width, img.height)
-        else:  
-            w, h = self.context.Schema()['image'].getSize(self.context)
-            if (not tw or tw >= w) and (not th or th >= h):
-                #original image <= already displayed teaser -> no popup needed
-                #extra check since this popup scale might "blow up" the original picture
-                #XXX really needed? if we need a check, shouldn't we check org <= popup here?
-                return None
-            
-            pw, ph = provider.getSize('popup')
-            url = provider.getTeaserURL(size='popup')
-               
+        w, h = self.context.Schema()['image'].getSize(self.context)
+        tw, th = provider.getSize(self.type)
+        if (not tw or tw >= w) and (not th or th >= h):
+            #original image <= already displayed teaser -> no popup needed
+            #extra check since this popup scale might "blow up" the original picture
+            #XXX really needed? if we need a check, shouldn't we check org <= popup here?
+            return None
+        pw, ph = provider.getSize('popup')
         if (pw and pw <= tw) or (ph and ph <= th):
             #popup scale  <= teaser -> no popup needed
             return None
-        
-        return url
+        return provider.getTeaserURL(size='popup')
 
     @property
     @memoize
