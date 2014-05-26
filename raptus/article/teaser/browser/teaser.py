@@ -9,8 +9,6 @@ from plone.memoize.instance import memoize
 from raptus.article.core import RaptusArticleMessageFactory as _
 from raptus.article.core import interfaces
 from raptus.article.teaser.interfaces import ITeaser
-from plone.app.imaging.interfaces import IImageScaling
-from Products.CMFPlone.utils import safe_unicode
 
 
 class ITeaserLeft(interface.Interface):
@@ -64,7 +62,7 @@ class ViewletLeft(ViewletBase):
             
     @property
     @memoize
-    def image(self):       
+    def image(self):
         provider = ITeaser(self.context)
         return provider.getTeaser(size=self.type)
 
