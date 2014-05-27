@@ -33,17 +33,15 @@ class Teaser(object):
         scales = component.getMultiAdapter((self.context, self.context.REQUEST), name='images')
         url = ''
 
-        if self._getScale(size) is not None:
+        if self.getScale(size) is not None:
             #if a scale property is defined and the scale exists: use it's url
-            scaled = scales.scale('image', self._getScale(size))            
+            scaled = scales.scale('image', self.getScale(size))            
             url = scaled and scaled.url or ''
-        
+
         if not url:
             w, h = self.getSize(size)
-            
             url = '%s/image' % self.context.absolute_url()
             if w or h:
-                
                 scale = scales.scale('image', width=(w or 100000), height=(h or 100000))
                 if scale is not None:
                     url = scale.url
@@ -68,7 +66,7 @@ class Teaser(object):
         return '<img src="%s" alt="%s" />' % (url, self.getCaption())
         
     @memoize
-    def _getScale(self, size):
+    def getScale(self, size):
         """if ``teaser_<size>_scale`` property is
         present and set, we return the scale defined there.
         """
@@ -80,9 +78,9 @@ class Teaser(object):
         """
         Returns the width and height registered for the specific size
         """
-        if self._getScale(size):
+        if self.getScale(size):
             scales = component.getMultiAdapter((self.context, self.context.REQUEST), name='images')
-            scaled = scales.scale('image', self._getScale(size))
+            scaled = scales.scale('image', self.getScale(size))
             if scaled:
                 return (scaled.width, scaled.height)
         
