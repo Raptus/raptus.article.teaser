@@ -58,8 +58,8 @@ class ViewletLeft(ViewletBase):
     @memoize
     def caption_non_default(self):
         provider = ITeaser(self.context)
-        return provider.getCaption(non_default = True)
-
+        return provider.getCaption(non_default=True)
+            
     @property
     @memoize
     def image(self):
@@ -69,16 +69,29 @@ class ViewletLeft(ViewletBase):
     @property
     @memoize
     def url(self):
+        """return link to popup image, none if the popup is not bigger
+        than the already displayed teaser image
+        """
         provider = ITeaser(self.context)
         w, h = self.context.Schema()['image'].getSize(self.context)
         tw, th = provider.getSize(self.type)
         if (not tw or tw >= w) and (not th or th >= h):
+            #original image <= already displayed teaser -> no popup needed
+            #extra check since this popup scale might "blow up" the original picture
+            #XXX really needed? if we need a check, shouldn't we check org <= popup here?
             return None
         pw, ph = provider.getSize('popup')
         if (pw and pw <= tw) or (ph and ph <= th):
+            #popup scale  <= teaser -> no popup needed
             return None
         return provider.getTeaserURL(size='popup')
 
+    @property
+    @memoize
+    def relAttribute(self):
+        props = getToolByName(self.context, 'portal_properties').raptus_article
+        return props.getProperty('teaser_rel_attribute', 'lightbox')
+        
 
 class ITeaserRight(interface.Interface):
     """ Marker interface for the teaser right viewlet

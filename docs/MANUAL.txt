@@ -22,12 +22,25 @@ Interfaces
 
 file: interfaces.py
 ```````````````````
+
 - ITeaser - (Handler for teaser thumbing and captioning)
     - getTeaserURL - method (Returns the url to the teaser image in the specific size.
       The sizes are taken from the raptus_article properties sheet and are formed by the following name schema:
       teaser_<size>_(height|width)
+      
+      If the ``teaser_<size>_scale`` property is set, the corresponding
+      plone.app.imaging scale is used.
+      
     - getTeaser - method (Returns the html tag of the teaser image in the specific size
       The sizes are taken from the raptus_article properties sheet and are formed by the following name schema:
       teaser_<size>_(height|width)
+      
+      If the ``teaser_<size>_scale`` property is set, the corresponding
+      plone.app.imaging scale is used.
+      
     - getSize - method (Returns the width and height registered for the specific size)
+    
+      I teaser_<size>_scale property is set it retuns the actual size of the
+      scaled image.
+      
     - getCaption - method (Returns the caption for the image)

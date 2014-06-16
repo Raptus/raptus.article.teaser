@@ -29,6 +29,12 @@ class ITeaser(interface.Interface):
         Returns the width and height registered for the specific size
         """
     
+    def getScale(size):
+        """
+        Returns the name if the image scale used for the specific size.
+        None if size is given via width and height properties.
+        """
+        
     def getCaption():
         """
         Returns the caption for the image
