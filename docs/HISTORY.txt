@@ -4,27 +4,26 @@ Changelog
 2.0b13 (unreleased)
 -------------------
 
-- Nothing changed yet.
-
+* Make the package compatible with plone.app.imagecropping >= 1.0
 
 2.0b12 (2014-06-16)
 -------------------
 
 * Add a property ``teaser_rel_attribute`` to be able to use a js-gallery
   product other than `Products.jsImagePopups`.
-  
+
   eg set it to ``prettyPhoto`` to use `collective.prettyphoto`.
 
   (this fixes #2) [fRiSi]
 
-* Add properties ``teaser_*_scale`` to be able to use plone.app.imaging 
+* Add properties ``teaser_*_scale`` to be able to use plone.app.imaging
   scales instead of the raptus.article image sizes.
-  
+
   This allows us to use `plone.app.imagecropping`_ [fRiSi]
-  
+
   .. _plone.app.imagecropping: https://pypi.python.org/pypi/plone.app.imagecropping
-  
-    
+
+
 
 
 2.0b11 (2013-07-22)

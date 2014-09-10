@@ -31,10 +31,10 @@
     <adapter
       factory=".teaser.Teaser" />
 
-    <configure zcml:condition="installed plone.app.imagecropping"> 
+    <configure zcml:condition="installed plone.app.imagecropping">
         <class class="raptus.article.core.content.article.Article">
-            <implements interface="plone.app.imagecropping.interfaces.IImageCropping" />
+            <implements interface="plone.app.imagecropping.at.IImageCroppingAT" />
         </class>
     </configure>
-    
+
 </configure>
