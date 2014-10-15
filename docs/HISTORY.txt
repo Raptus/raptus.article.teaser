@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.0b13 (unreleased)
+2.0b13 (2014-10-15)
 -------------------
 
 * Make the package compatible with plone.app.imagecropping >= 1.0
