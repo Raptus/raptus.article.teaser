@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.0b14 (unreleased)
+2.0b14 (2017-06-08)
 -------------------
 
 * Prevent UnicodeDecodeError when generating the teaser image output [skaeser]
