@@ -4,7 +4,7 @@ Changelog
 2.0b14 (unreleased)
 -------------------
 
-- Nothing changed yet.
+* Prevent UnicodeDecodeError when generating the teaser image output [skaeser]
 
 
 2.0b13 (2014-10-15)

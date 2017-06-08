@@ -1,6 +1,7 @@
 from zope import interface, component
 
 from Products.CMFCore.utils import getToolByName
+from Products.CMFPlone.utils import safe_unicode
 
 from raptus.article.core.interfaces import IArticle
 from raptus.article.teaser.interfaces import ITeaser
@@ -92,7 +93,7 @@ class Teaser(object):
         Returns the caption for the image.
         If the flag non_default is set it's return a empty string if the caption are empty too
         """
-        if (non_default):
-            return self.context.Schema()['imageCaption'].get(self.context)
-        else:
-            return self.context.Schema()['imageCaption'].get(self.context) or self.context.Title()
+        caption = self.context.Schema()['imageCaption'].get(self.context)
+        if not caption and not non_default:
+            caption = self.context.Title()
+        return safe_unicode(caption)
